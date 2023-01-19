@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import { Input } from "../Input";
 import styles from "./PasswordGenerator.module.scss";
 import { PasswordGeneratorOptionsType } from "./types";
@@ -32,33 +32,42 @@ export function PasswordGenerator() {
     []
   );
 
-  const handleRangeChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setPasswordLength(+event.target.value);
-    },
-    []
-  );
+  function handleRangeChange(event: ChangeEvent<HTMLInputElement>) {
+    setPasswordLength(+event.target.value);
+  }
 
-  const toggleSelectedOptions = useCallback(
-    ({ target: { id, checked } }: ChangeEvent<HTMLInputElement>) => {
-      const option = id as PasswordGeneratorOptionsType;
+  function toggleSelectedOptions({
+    target: { id, checked },
+  }: ChangeEvent<HTMLInputElement>) {
+    const option = id as PasswordGeneratorOptionsType;
 
-      // Reject deselecting the last selected option.
-      if (selectedOptions.length === 1 && option === selectedOptions[0]) return;
+    // Reject deselecting the last selected option.
+    if (selectedOptions.length === 1 && option === selectedOptions[0]) return;
 
-      if (selectedOptions.includes(option)) {
-        if (!checked)
-          setSelectedOptions(selectedOptions.filter((opt) => option !== opt));
-      } else {
-        if (checked) setSelectedOptions([...selectedOptions, option]);
-      }
-    },
-    [selectedOptions]
-  );
+    if (selectedOptions.includes(option)) {
+      if (!checked)
+        setSelectedOptions(selectedOptions.filter((opt) => option !== opt));
+    } else {
+      if (checked) setSelectedOptions([...selectedOptions, option]);
+    }
+  }
+
+  function handleCopyClick() {
+    navigator.clipboard.writeText(password);
+  }
+
+  function handleGenerateClick() {
+    setPassword(getRandomPassword(selectedOptions, passwordLength));
+  }
 
   return (
     <div className={styles.container}>
-      <Input type="text" Icon={<span>C</span>} value={password} />
+      <Input
+        type="text"
+        Icon={<span>C</span>}
+        value={password}
+        onIconClick={handleCopyClick}
+      />
       <Input
         label={`Character length ${passwordLength}`}
         type="range"
@@ -80,13 +89,7 @@ export function PasswordGenerator() {
         />
       ))}
 
-      <button
-        onClick={() => {
-          setPassword(getRandomPassword(selectedOptions, passwordLength));
-        }}
-      >
-        Generate
-      </button>
+      <button onClick={handleGenerateClick}>Generate</button>
     </div>
   );
 }

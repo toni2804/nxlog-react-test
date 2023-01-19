@@ -20,7 +20,7 @@ export function Input({
     <div className={styles.container}>
       {label && <label htmlFor={id}>{label}</label>}
       <input type={type} id={id} {...props} />
-      {Icon && <span className={styles.icon}>{Icon}</span>}
+      {Icon && <span className={styles.icon} onClick={onIconClick}>{Icon}</span>}
     </div>
   );
 }
