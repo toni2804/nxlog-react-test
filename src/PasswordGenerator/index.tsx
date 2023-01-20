@@ -1,9 +1,10 @@
 import { ChangeEvent, useMemo, useState } from "react";
-import { Input } from "../Input";
+import { Input } from "../components/Input";
 import styles from "./PasswordGenerator.module.scss";
 import { PasswordGeneratorOptionsType } from "./types";
 import { getRandomPassword } from "./utils";
-import { Checkbox } from "../Checkbox";
+import { Checkbox } from "../components/Checkbox";
+import { Button } from "../components/Button";
 
 const DEFAULT_PASSWORD_LENGTH = 10,
   MIN_PASSWORD_LENGTH = 6,
@@ -88,8 +89,7 @@ export function PasswordGenerator() {
           checked={selectedOptions.includes(id)}
         />
       ))}
-
-      <button onClick={handleGenerateClick}>Generate</button>
+      <Button onClick={handleGenerateClick}>Generate</Button>
     </div>
   );
 }
