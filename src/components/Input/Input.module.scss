@@ -1,5 +1,6 @@
 @import "../../theme/spacings";
 @import "../../theme/colors";
+@import "../../theme/mixins";
 
 .container {
   position: relative;
@@ -16,23 +17,36 @@
   font-size: 1.1rem;
   border-top-right-radius: $radiiInputs;
   border-top-left-radius: $radiiInputs;
-  border-bottom: 1px solid $colorSecondaryDarkContrast;
+  border-bottom: 1px solid $colorPrimaryDarker;
 
   &:focus {
-    transition: all 100ms ease-out;
-    border-bottom-color: $colorPrimaryDark;
     background-color: $colorSecondaryDark;
+    @include transitionFastALl;
+  }
+  &:hover {
+    border-bottom-color: $colorPrimaryDark;
+    @include transitionFastALl;
   }
 }
 
 .icon {
   position: absolute;
   right: $space5;
+  top: $space3;
   cursor: pointer;
 
   img,
   svg {
-    width: 1rem;
-    height: 1rem;
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    @include transitionFastALl;
+  }
+  &:active {
+    opacity: 0.6;
+    @include transitionFastALl;
   }
 }

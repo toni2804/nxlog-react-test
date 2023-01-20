@@ -1,12 +1,14 @@
+@import "../theme/spacings";
+
 .container {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: $space6;
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  min-height: 180px;
+  gap: $space3;
 }

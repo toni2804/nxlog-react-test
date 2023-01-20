@@ -81,16 +81,20 @@ export function PasswordGenerator() {
         step={1}
         readOnly
       />
-      {optionsCheckboxes.map(({ id, label }) => (
-        <Checkbox
-          key={id}
-          id={id}
-          label={label}
-          onChange={toggleSelectedOptions}
-          checked={selectedOptions.includes(id)}
-        />
-      ))}
-      <Button onClick={handleGenerateClick}>Generate</Button>
+      <div>
+        {optionsCheckboxes.map(({ id, label }) => (
+          <Checkbox
+            key={id}
+            id={id}
+            label={label}
+            onChange={toggleSelectedOptions}
+            checked={selectedOptions.includes(id)}
+          />
+        ))}
+      </div>
+      <div className={styles.btnWrapper}>
+        <Button onClick={handleGenerateClick}>Generate</Button>
+      </div>
     </div>
   );
 }
