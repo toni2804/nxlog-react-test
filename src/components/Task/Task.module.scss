@@ -1,0 +1,18 @@
+@import "../../theme/spacings";
+@import "../../theme/colors";
+
+.container {
+  background-color: $colorsecondaryLight;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  min-width: 580px;
+  width: 40vw;
+  -webkit-box-shadow: -7px 9px 22px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -7px 9px 22px -8px rgba(0, 0, 0, 0.75);
+  box-shadow: -7px 9px 22px -8px rgba(0, 0, 0, 0.75);
+}
+
+.title {
+  margin-top: 0;
+}

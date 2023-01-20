@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import PasswordGenerator from './PasswordGenerator';
 import Task from './components/Task';
 import TransferList from 'src/TransferList';

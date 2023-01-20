@@ -1,8 +1,14 @@
+@import "../../theme/spacings";
+
 .wrapper {
   display: flex;
   align-items: center;
+}
 
-  label {
-    margin-left: .33rem;
-  }
+.input {
+  cursor: pointer;
+}
+
+.label {
+  margin-left: $space3;
 }

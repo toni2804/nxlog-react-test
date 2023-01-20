@@ -1,11 +1,38 @@
+@import "../../theme/spacings";
+@import "../../theme/colors";
+
 .container {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: $space2;
+}
+
+.input {
+  outline: none;
+  background-color: $colorSecondary;
+  border: none;
+  padding: $space5;
+  font-size: 1.1rem;
+  border-top-right-radius: $radiiInputs;
+  border-top-left-radius: $radiiInputs;
+  border-bottom: 1px solid $colorSecondaryDarkContrast;
+
+  &:focus {
+    transition: all 100ms ease-out;
+    border-bottom-color: $colorPrimaryDark;
+    background-color: $colorSecondaryDark;
+  }
 }
 
 .icon {
   position: absolute;
-  right: 0;
+  right: $space5;
+  cursor: pointer;
+
+  img,
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
 }

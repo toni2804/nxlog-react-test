@@ -1,3 +1,5 @@
+@import "./theme/colors";
+
 .App {
   text-align: center;
 }
@@ -14,7 +16,7 @@
 }
 
 .App-header {
-  background-color: #fafafa;
+  background-color: $colorSecondaryDark;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

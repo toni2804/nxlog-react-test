@@ -65,7 +65,7 @@ export function PasswordGenerator() {
     <div className={styles.container}>
       <Input
         type="text"
-        Icon={<span>C</span>}
+        Icon={<img src="/svgs/copy.svg" alt="copy" title="Copy" />}
         value={password}
         onIconClick={handleCopyClick}
       />
@@ -79,6 +79,7 @@ export function PasswordGenerator() {
         max={MAX_PASSWORD_LENGTH}
         min={MIN_PASSWORD_LENGTH}
         step={1}
+        readOnly
       />
       {optionsCheckboxes.map(({ id, label }) => (
         <Checkbox

@@ -1,2 +1,12 @@
+@import "../../theme/colors";
+@import "../../theme/spacings";
+
 .button {
+  width: fit-content;
+  border: none;
+  border-radius: $radiiButtons;
+  padding: $space5;
+  background-color: $colorPrimary;
+  letter-spacing: $space1;
+  text-transform: uppercase;
 }
