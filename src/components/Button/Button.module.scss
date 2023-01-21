@@ -1,6 +1,6 @@
-@import "../../theme/colors";
-@import "../../theme/spacings";
-@import "../../theme/mixins";
+@import "src/theme/colors";
+@import "src/theme/spacings";
+@import "src/theme/mixins";
 
 .button {
   width: fit-content;
@@ -12,12 +12,23 @@
   text-transform: uppercase;
   cursor: pointer;
 
+  &.dense {
+    padding: $space3;
+  }
+
   &:hover {
     background-color: $colorPrimaryDark;
+    @include boxShadow;
     @include transitionFastALl;
   }
   &:active {
     background-color: $colorPrimaryDarker;
     @include transitionFastALl;
+  }
+  &:disabled {
+    cursor: initial;
+    box-shadow: none;
+    background-color: $colorSecondaryDarker;
+    opacity: 0.6;
   }
 }

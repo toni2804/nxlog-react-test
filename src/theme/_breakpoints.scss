@@ -1,0 +1,7 @@
+// Ideally this would be in the theme in CSS variables but we can't use CSS variables inside a media query
+// statement. So we have to have this in normal sass variables.
+$breakpoints: (
+  "sm": "760px",
+  "md": "1200px",
+  "lg": "1500px",
+);

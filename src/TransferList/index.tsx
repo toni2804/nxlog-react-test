@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "src/components/Button";
+import TransferListActionBtn from "src/TransferList/components/ActionButton";
 import TransferListList, {
   TransferListListItem,
 } from "src/TransferList/components/List";
@@ -39,7 +40,7 @@ export function TransferList() {
       }
     }
   }
-  
+
   function handleTransfer(
     source: number,
     destination: number,
@@ -73,30 +74,34 @@ export function TransferList() {
         onItemToggle={(id) => handleToggleList(id, 0)}
       />
       <div className={styles.actions}>
-        <Button
+        <TransferListActionBtn
           disabled={isListEmpty(1)}
           onClick={() => handleTransfer(1, 0, true)}
-        >
-          &laquo;
-        </Button>
-        <Button
+          src="/svgs/expand-left-double.svg"
+          title="Move all"
+          alt="Move all to first list"
+        />
+        <TransferListActionBtn
           disabled={!isAnyItemChecked(1)}
           onClick={() => handleTransfer(1, 0, false)}
-        >
-          &lt;
-        </Button>
-        <Button
+          src="/svgs/expand-left.svg"
+          title="Move all"
+          alt="Move selected to first list"
+        />
+        <TransferListActionBtn
           disabled={!isAnyItemChecked(0)}
           onClick={() => handleTransfer(0, 1, false)}
-        >
-          &gt;
-        </Button>
-        <Button
+          src="/svgs/expand-right.svg"
+          title="Move all"
+          alt="Move selected to second list"
+        />
+        <TransferListActionBtn
           disabled={isListEmpty(0)}
           onClick={() => handleTransfer(0, 1, true)}
-        >
-          &raquo;
-        </Button>
+          src="/svgs/expand-right-double.svg"
+          title="Move all"
+          alt="Move all to second list"
+        />
       </div>
       <TransferListList
         items={items[1]}

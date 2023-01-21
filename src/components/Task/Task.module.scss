@@ -1,18 +1,31 @@
-@import "../../theme/spacings";
-@import "../../theme/colors";
-@import "../../theme/mixins";
+@import "src/theme/spacings";
+@import "src/theme/colors";
+@import "src/theme/mixins";
+@import "src/theme/responsive";
 
 .container {
-  background-color: $colorsecondaryLight;
-  padding:$space11 $space10;
-  margin-bottom: $space11;
-  border-radius: $radiiBoxes;
   min-width: 580px;
   width: 40vw;
-  
+  padding: $space8;
+  margin-bottom: $space10;
+  border-radius: $radiiBoxes;
+  background-color: $colorsecondaryLight;
+
   @include boxShadow;
+
+  @include smRevertMedia {
+    width: 100%;
+    min-width: unset;
+    margin: $space6 auto;
+    box-sizing: border-box;
+  }
 }
 
 .title {
+  font-size: $fontSize6;
   margin-top: 0;
+  
+  @include smRevertMedia {
+    margin: 0;
+  }
 }

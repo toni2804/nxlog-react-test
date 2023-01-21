@@ -1,9 +1,18 @@
 import { ButtonHTMLAttributes } from "react";
 import styles from "./Button.module.scss";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
-
-export function Button({ children, ...props }: ButtonProps) {
-  return <button className={styles.button} {...props}>{children}</button>;
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * The flag indicating the dense spacings.
+   */
+  dense?: boolean;
 }
-export default Button
+
+export function Button({ children, dense, ...props }: ButtonProps) {
+  return (
+    <button className={`${styles.button} ${dense ? styles.dense : ''}`} {...props}>
+      {children}
+    </button>
+  );
+}
+export default Button;

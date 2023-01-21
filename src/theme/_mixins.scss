@@ -1,10 +1,12 @@
 @mixin boxShadow {
-  -webkit-box-shadow: -2px 0px 29px -2px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -2px 0px 29px -2px rgba(0, 0, 0, 0.75);
-  box-shadow: -2px 0px 29px -2px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 }
 
 @mixin transitionFastALl {
-      transition: all 100ms ease-out;
-
+  transition: all 100ms ease-out;
 }

@@ -1,14 +1,31 @@
-@import "../theme/spacings";
+@import "src/theme/spacings";
+@import "src/theme/responsive";
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: $space6;
+
+  @include smRevertMedia {
+    flex-direction: column;
+    align-items: center;
+    gap: $space2;
+  }
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: $space3;
+  gap: $space2;
+
+  @include smRevertMedia {
+    flex-direction: row;
+    justify-content: center;
+    gap: $space4;
+
+    button {
+      transform: rotate(90deg);
+    }
+  }
 }

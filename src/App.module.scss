@@ -1,0 +1,32 @@
+@use "sass:map";
+@import "src/theme/breakpoints";
+@import "src/theme/colors";
+@import "src/theme/spacings";
+@import "src/theme/responsive";
+
+.container {
+  top: 0;
+  position: relative;
+  text-align: center;
+  background-color: $colorSecondaryDark;
+  min-height: 100vh;
+  padding: $space6;
+
+  @include smRevertMedia {
+    padding: $space4;
+  }
+}
+
+.header {
+  font-size: $fontSize5;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+  max-width: map.get($breakpoints, "lg");
+}
