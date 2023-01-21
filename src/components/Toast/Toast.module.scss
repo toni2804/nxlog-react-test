@@ -1,0 +1,42 @@
+@import "src/theme/spacings";
+@import "src/theme/colors";
+@import "src/theme/responsive";
+
+.container {
+  position: fixed;
+  display: flex;
+  gap: $space4;
+  max-width: 200px;
+  width: fit-content;
+  bottom: $space6;
+  right: $space6;
+  padding: $space5;
+  font-size: $fontSize1;
+  z-index: $zIndexToast;
+  background-color: $colorSecondaryDarker;
+  color: white;
+  border-radius: $radiiBoxes;
+
+  @include smRevertMedia {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    max-width: none;
+    border-radius: 0;
+    justify-content: center;
+  }
+}
+
+.success {
+  background-color: $colorSuccess;
+}
+
+.error {
+  background-color: $colorError;
+}
+
+.close {
+  cursor: pointer;
+  font-weight: bolder;
+}

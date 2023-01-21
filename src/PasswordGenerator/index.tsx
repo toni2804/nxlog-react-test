@@ -1,15 +1,29 @@
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Input } from "../components/Input";
 import styles from "./PasswordGenerator.module.scss";
 import { PasswordGeneratorOptionsType } from "./types";
 import { Checkbox } from "../components/Checkbox";
 import { Button } from "../components/Button";
-import { getRandCharForOption, getRandIntInRange, shuffleArray } from 'src/PasswordGenerator/utils';
+import {
+  getRandCharForOption,
+  getRandIntInRange,
+  shuffleArray,
+} from "src/PasswordGenerator/utils";
+import Toast, { ToastVariant } from "src/components/Toast";
 
 const DEFAULT_PASSWORD_LENGTH = 10,
   MIN_PASSWORD_LENGTH = 6,
   MAX_PASSWORD_LENGTH = 40,
-  DEFAULT_SELECTED_OPTION: PasswordGeneratorOptionsType = "lowercase";
+  DEFAULT_SELECTED_OPTION: PasswordGeneratorOptionsType = "lowercase",
+  AVAILABLE_OPTIONS: {
+    id: PasswordGeneratorOptionsType;
+    label: string;
+  }[] = [
+    { id: "uppercase", label: "Include Uppercase" },
+    { id: "lowercase", label: "Include Lowercase" },
+    { id: "symbols", label: "Include Symbols" },
+    { id: "numbers", label: "Include Numbers" },
+  ];
 
 export function PasswordGenerator() {
   const [password, setPassword] = useState<string>("");
@@ -19,25 +33,9 @@ export function PasswordGenerator() {
   const [passwordLength, setPasswordLength] = useState<number>(
     DEFAULT_PASSWORD_LENGTH
   );
-
-  const optionsCheckboxes: {
-    id: PasswordGeneratorOptionsType;
-    label: string;
-  }[] = useMemo(
-    () => [
-      { id: "uppercase", label: "Include Uppercase" },
-      { id: "lowercase", label: "Include Lowercase" },
-      { id: "symbols", label: "Include Symbols" },
-      { id: "numbers", label: "Include Numbers" },
-    ],
-    []
+  const [copyPassStatus, setCopyPassStatus] = useState<ToastVariant | null>(
+    null
   );
-
-  const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setPasswordLength(+event.target.value);
-  const handleCopyClick = () => navigator.clipboard.writeText(password);
-  const handleGenerateClick = () =>
-    setPassword(getRandomPassword());
 
   function togglecheckedOptions({
     target: { id, checked },
@@ -54,8 +52,7 @@ export function PasswordGenerator() {
     else if (checked) setCheckedOptions([...checkedOptions, option]);
   }
 
-  function getRandomPassword(
-  ): string {
+  function getRandomPassword(): string {
     const passwordChars: string[] = [];
 
     checkedOptions.forEach((option, index) => {
@@ -79,6 +76,13 @@ export function PasswordGenerator() {
     return shuffleArray(passwordChars).join("");
   }
 
+  function handleCopyClick() {
+    navigator.clipboard
+      .writeText(password)
+      .then(() => setCopyPassStatus("success"))
+      .catch(() => setCopyPassStatus("error"));
+  }
+
   return (
     <div className={styles.container}>
       <Input
@@ -97,10 +101,12 @@ export function PasswordGenerator() {
         min={MIN_PASSWORD_LENGTH}
         step={1}
         readOnly
-        onChange={handleRangeChange}
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+          setPasswordLength(+event.target.value)
+        }
       />
       <div>
-        {optionsCheckboxes.map(({ id, label }) => (
+        {AVAILABLE_OPTIONS.map(({ id, label }) => (
           <Checkbox
             key={id}
             id={id}
@@ -111,8 +117,22 @@ export function PasswordGenerator() {
         ))}
       </div>
       <div className={styles.btnWrapper}>
-        <Button onClick={handleGenerateClick}>Generate</Button>
+        <Button onClick={() => setPassword(getRandomPassword())}>
+          Generate
+        </Button>
       </div>
+      {copyPassStatus && (
+        <Toast
+          variant={copyPassStatus}
+          message={
+            copyPassStatus === "success"
+              ? "Password copied to clipboard!"
+              : "An error happened copying password to clipboard"
+          }
+          onClose={() => setCopyPassStatus(null)}
+          autoclose
+        />
+      )}
     </div>
   );
 }
