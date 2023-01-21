@@ -10,6 +10,7 @@
   top: 0;
   padding: $space6;
   text-align: center;
+  box-sizing: border-box;
   background-color: $colorSecondaryDark;
 
   @include smRevertMedia {

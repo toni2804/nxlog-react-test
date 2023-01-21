@@ -7,7 +7,7 @@
   min-width: 580px;
   width: 40vw;
   padding: $space8;
-  margin-bottom: $space10;
+  margin-bottom: $space8;
   border-radius: $radiiBoxes;
   background-color: $colorsecondaryLight;
 
@@ -23,8 +23,9 @@
 .title {
   font-size: $fontSize5;
   margin-top: 0;
-  
+
   @include smRevertMedia {
     margin: 0;
+    margin-bottom: $space6;
   }
 }
