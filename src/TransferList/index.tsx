@@ -1,12 +1,11 @@
 import { useState } from "react";
-import Button from "src/components/Button";
-import TransferListActionBtn from "src/TransferList/components/ActionButton";
-import TransferListList, {
-  TransferListListItem,
+import TransferListActionButton from "src/TransferList/components/ActionButton";
+import TransferListBasket, {
+  TransferListBasketItem,
 } from "src/TransferList/components/List";
 import styles from "./TransferList.module.scss";
 
-const DEFAULT_ITEMS: TransferListListItem[] = [
+const DEFAULT_ITEMS: TransferListBasketItem[] = [
   "JS",
   "HTML",
   "CSS",
@@ -18,27 +17,27 @@ const DEFAULT_ITEMS: TransferListListItem[] = [
 ].map((item, index) => ({ id: index, label: item, checked: false }));
 
 export function TransferList() {
-  const [items, setItems] = useState<TransferListListItem[][]>([
+  const [itemsBaskets, setItemsBaskets] = useState<TransferListBasketItem[][]>([
     DEFAULT_ITEMS.slice(0, DEFAULT_ITEMS.length / 2),
     DEFAULT_ITEMS.slice(DEFAULT_ITEMS.length / 2),
   ]);
 
-  const isAnyItemChecked = (index: number) =>
-    items[index].some(({ checked }) => checked);
-  const isListEmpty = (index: number) => items[index].length === 0;
+  const isAnyItemChecked = (basket: number) =>
+    itemsBaskets[basket].some(({ checked }) => checked);
+  const isListEmpty = (basket: number) => itemsBaskets[basket].length === 0;
 
-  function handleToggleList(id: number, index: number) {
-    const stateItemsCopy = [...items];
-
-    for (let i = 0; i < items[index].length; i++) {
-      const item = items[index][i];
-
+  function handleToggleList(id: number, basket: number) {
+    itemsBaskets[basket].every((item, index) => {
+      // Find matching item.
       if (item.id === id) {
-        stateItemsCopy[index][i].checked = !item.checked;
-        setItems(stateItemsCopy);
-        break;
+        // Toggle checked, update state, and exit the loop.
+        itemsBaskets[basket][index].checked = !item.checked;
+        setItemsBaskets([...itemsBaskets]);
+
+        return false;
       }
-    }
+      return true;
+    });
   }
 
   function handleTransfer(
@@ -46,56 +45,73 @@ export function TransferList() {
     destination: number,
     transferAll = false
   ) {
-    const stateItemsCopy = [...items];
+    const itemsBasketsCopy = [...itemsBaskets];
 
     if (transferAll) {
-      stateItemsCopy[source] = [];
-      stateItemsCopy[destination] = DEFAULT_ITEMS;
+      itemsBaskets[source] = [];
+      // Desctucture copy of state, so that we can preserve checked property.
+      itemsBaskets[destination] = [
+        ...itemsBasketsCopy[0],
+        ...itemsBasketsCopy[1],
+      ];
     } else {
-      const stateItemsSourceCopy = [...stateItemsCopy[source]];
-      stateItemsCopy[source] = stateItemsCopy[source].filter(
+      const stateItemsSourceCopy = [...itemsBaskets[source]];
+      // Remove checked items from source.
+      itemsBaskets[source] = itemsBaskets[source].filter(
         ({ checked }) => !checked
       );
-      stateItemsCopy[destination] = stateItemsCopy[destination].concat(
+      // Add checked items from source copy into the destination.
+      itemsBaskets[destination] = itemsBaskets[destination].concat(
         stateItemsSourceCopy.filter(({ checked }) => checked)
       );
     }
-    setItems(
-      stateItemsCopy.map((items) =>
-        items.map((item) => ({ ...item, checked: false }))
+
+    setItemsBaskets(
+      itemsBaskets.map((items) =>
+        items.map((item) => ({
+          ...item,
+          /**
+           * If the initial state destination includes the item,
+           * we want to preserve the checked property,
+           * otherwise uncheck the item.
+           */
+          checked: itemsBasketsCopy[destination].includes(item)
+            ? item.checked
+            : false,
+        }))
       )
     );
   }
 
   return (
     <div className={styles.container}>
-      <TransferListList
-        items={items[0]}
+      <TransferListBasket
+        items={itemsBaskets[0]}
         onItemToggle={(id) => handleToggleList(id, 0)}
       />
       <div className={styles.actions}>
-        <TransferListActionBtn
+        <TransferListActionButton
           disabled={isListEmpty(1)}
           onClick={() => handleTransfer(1, 0, true)}
           src="/svgs/expand-left-double.svg"
           title="Move all"
           alt="Move all to first list"
         />
-        <TransferListActionBtn
+        <TransferListActionButton
           disabled={!isAnyItemChecked(1)}
           onClick={() => handleTransfer(1, 0, false)}
           src="/svgs/expand-left.svg"
-          title="Move all"
+          title="Move checked"
           alt="Move selected to first list"
         />
-        <TransferListActionBtn
+        <TransferListActionButton
           disabled={!isAnyItemChecked(0)}
           onClick={() => handleTransfer(0, 1, false)}
           src="/svgs/expand-right.svg"
-          title="Move all"
+          title="Move checked"
           alt="Move selected to second list"
         />
-        <TransferListActionBtn
+        <TransferListActionButton
           disabled={isListEmpty(0)}
           onClick={() => handleTransfer(0, 1, true)}
           src="/svgs/expand-right-double.svg"
@@ -103,8 +119,8 @@ export function TransferList() {
           alt="Move all to second list"
         />
       </div>
-      <TransferListList
-        items={items[1]}
+      <TransferListBasket
+        items={itemsBaskets[1]}
         onItemToggle={(id) => handleToggleList(id, 1)}
       />
     </div>

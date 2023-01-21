@@ -1,32 +1,32 @@
 import { Checkbox } from "src/components/Checkbox";
-import styles from "./List.module.scss";
+import styles from "src/TransferList/components/List/List.module.scss";
 
-export interface TransferListListItem {
+export interface TransferListBasketItem {
   id: number;
   label: string;
   checked: boolean;
 }
-interface TransferListListProps {
-  items: TransferListListItem[];
+interface TransferListBasketProps {
+  items: TransferListBasketItem[];
   onItemToggle: (id: number) => void;
 }
 
-export function TransferListList({
+export function TransferListBasket({
   items,
   onItemToggle,
-}: TransferListListProps) {
+}: TransferListBasketProps) {
   return (
     <ul className={styles.list}>
       {items.map(({ id, label, checked }) => (
         <li className={styles.item} key={id}>
           <Checkbox
             label={label}
-            onChange={() => onItemToggle(id)}
             checked={checked}
+            onChange={() => onItemToggle(id)}
           />
         </li>
       ))}
     </ul>
   );
 }
-export default TransferListList;
+export default TransferListBasket;

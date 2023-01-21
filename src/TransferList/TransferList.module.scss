@@ -25,6 +25,8 @@
     gap: $space4;
 
     button {
+      // Rotate arrows on small screens because
+      // we use column stacked layout.
       transform: rotate(90deg);
     }
   }

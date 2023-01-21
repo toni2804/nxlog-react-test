@@ -1,6 +1,6 @@
 import styles from "src/App.module.scss";
-import PasswordGenerator from "./PasswordGenerator";
-import Task from "./components/Task";
+import PasswordGenerator from "src/PasswordGenerator";
+import Task from "src/components/Task";
 import TransferList from "src/TransferList";
 
 function App() {

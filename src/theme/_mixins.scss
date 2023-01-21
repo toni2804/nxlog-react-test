@@ -10,3 +10,8 @@
 @mixin transitionFastALl {
   transition: all 100ms ease-out;
 }
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}

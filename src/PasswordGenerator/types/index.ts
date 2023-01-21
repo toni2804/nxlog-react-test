@@ -1,1 +1,5 @@
-export type PasswordGeneratorOptionsType = "uppercase" |  "lowercase" | "numbers" | "symbols"
+export type PasswordGeneratorOptionsType =
+  | "uppercase"
+  | "lowercase"
+  | "numbers"
+  | "symbols";

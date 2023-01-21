@@ -2,7 +2,7 @@
 @import "src/theme/colors";
 @import "src/theme/mixins";
 
-.container {
+.wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -11,42 +11,50 @@
 
 .input {
   outline: none;
-  background-color: $colorSecondary;
   border: none;
   padding: $space5;
   font-size: 1.1rem;
+  background-color: $colorSecondary;
   border-top-right-radius: $radiiInputs;
   border-top-left-radius: $radiiInputs;
   border-bottom: 1px solid $colorPrimaryDarker;
 
   &:focus {
     background-color: $colorSecondaryDark;
+
+    @include boxShadow;
     @include transitionFastALl;
   }
   &:hover {
     border-bottom-color: $colorPrimaryDark;
+
     @include transitionFastALl;
   }
 }
 
 .icon {
+  cursor: pointer;
   position: absolute;
   right: $space5;
   top: $space3;
-  cursor: pointer;
 
   img,
   svg {
-    width: 1.3rem;
-    height: 1.3rem;
+    @include square($space7)
   }
 
   &:hover {
     opacity: 0.8;
+
     @include transitionFastALl;
   }
   &:active {
     opacity: 0.6;
+
     @include transitionFastALl;
   }
+}
+
+.label {
+  font-size: $space6;
 }

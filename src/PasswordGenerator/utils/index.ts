@@ -1,7 +1,9 @@
 import { PasswordGeneratorOptionsType } from "../types";
 
 // Reference: https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
-const optionsMap: { [K in PasswordGeneratorOptionsType]: number[][] } = {
+const passwordOptionsAsciiMap: {
+  [K in PasswordGeneratorOptionsType]: number[][];
+} = {
   lowercase: [[97, 122]],
   uppercase: [[65, 90]],
   numbers: [[48, 57]],
@@ -13,52 +15,61 @@ const optionsMap: { [K in PasswordGeneratorOptionsType]: number[][] } = {
   ],
 };
 
-export function getRandomPassword(
-  selectedOptions: PasswordGeneratorOptionsType[],
-  passwordLength: number
+/**
+ * Generates a random characted for given password option.
+ * 
+ * @param {PasswordGeneratorOptionsType} option 
+ * @returns 
+ * Random character for particular option.
+ */
+export function getRandCharForOption(
+  option: PasswordGeneratorOptionsType
 ): string {
-  const passwordChars: string[] = [];
+  // ASCII codes range for given option.
+  const asciiCodesForOptionArray = passwordOptionsAsciiMap[option];
+  // Assume the asciiCodesForOptionArray has only one range.
+  let asciiCodesForOptionRange = [
+    asciiCodesForOptionArray[0][0],
+    asciiCodesForOptionArray[0][1],
+  ];
 
-  selectedOptions.forEach((option, index) => {
-    let amountOfCharsToGenerate =
-      index + 1 === selectedOptions.length
-        ? passwordLength - passwordChars.length
-        : getRandNumInRange(
-            1,
-            passwordLength - selectedOptions.length + 1 - passwordChars.length
-          );
+  // Check if asciiCodesForOptionArray has multiple ranges.
+  if (asciiCodesForOptionArray.length > 1) {
+    // Randomly pick one codes range to generate the char from.
+    const randomAsciiCodesForOptionRange =
+      asciiCodesForOptionArray[
+        getRandIntInRange(0, asciiCodesForOptionArray.length - 1)
+      ];
 
-    while (amountOfCharsToGenerate-- > 0) {
-      passwordChars.push(getRandCharForOption(option));
-    }
-  });
-
-  return shuffleArray(passwordChars).join("");
-}
-
-function getRandCharForOption(option: PasswordGeneratorOptionsType): string {
-  const optionAsciiCodes = optionsMap[option];
-  let optionAsciiCodesRangeStart = optionAsciiCodes[0][0],
-    optionAsciiCodesRangeEnd = optionAsciiCodes[0][1];
-
-  if (optionAsciiCodes.length > 1) {
-    const optionAsciiCodesRange =
-      optionAsciiCodes[getRandNumInRange(0, optionAsciiCodes.length - 1)];
-    optionAsciiCodesRangeStart = optionAsciiCodesRange[0];
-    optionAsciiCodesRangeEnd = optionAsciiCodesRange[1];
+    // Update asciiCodesForOptionRange.
+    asciiCodesForOptionRange[0] = randomAsciiCodesForOptionRange[0];
+    asciiCodesForOptionRange[1] = randomAsciiCodesForOptionRange[1];
   }
 
+  // Return random picked character from randomly choosen ascii codes
+  // range for given option.
   return String.fromCharCode(
-    getRandNumInRange(optionAsciiCodesRangeStart, optionAsciiCodesRangeEnd)
+    getRandIntInRange(asciiCodesForOptionRange[0], asciiCodesForOptionRange[1])
   );
 }
 
-function getRandNumInRange(min: number, max: number) {
+/**
+ * Generates random integer in given range,
+ * where range limits are inclusive.
+ *
+ * @param {number} min
+ * The inclusive lower limit of desired range.
+ * @param {number} max
+ * The inclusive upper limit of desired range.
+ * @returns  {number}
+ * Randomly generated integer in given range.
+ */
+export function getRandIntInRange(min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function shuffleArray<T>(arr: T[]) {
+export function shuffleArray<T>(arr: T[]) {
   return arr.sort(() => 0.5 - Math.random());
 }

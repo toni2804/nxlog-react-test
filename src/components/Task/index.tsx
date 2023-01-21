@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
-import styles from "./Task.module.scss";
+import styles from "src/components/Task/Task.module.scss";
 
 interface TaskProps {
   title: string;
   children: ReactNode;
 }
+
 export function Task({ title, children }: TaskProps) {
   return (
     <div className={styles.container}>

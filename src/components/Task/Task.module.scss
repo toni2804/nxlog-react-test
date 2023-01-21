@@ -12,17 +12,16 @@
   background-color: $colorsecondaryLight;
 
   @include boxShadow;
-
   @include smRevertMedia {
+    box-sizing: border-box;
     width: 100%;
     min-width: unset;
     margin: $space6 auto;
-    box-sizing: border-box;
   }
 }
 
 .title {
-  font-size: $fontSize6;
+  font-size: $fontSize5;
   margin-top: 0;
   
   @include smRevertMedia {

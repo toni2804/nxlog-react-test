@@ -2,20 +2,20 @@ import { ChangeEvent, useMemo, useState } from "react";
 import { Input } from "../components/Input";
 import styles from "./PasswordGenerator.module.scss";
 import { PasswordGeneratorOptionsType } from "./types";
-import { getRandomPassword } from "./utils";
 import { Checkbox } from "../components/Checkbox";
 import { Button } from "../components/Button";
+import { getRandCharForOption, getRandIntInRange, shuffleArray } from 'src/PasswordGenerator/utils';
 
 const DEFAULT_PASSWORD_LENGTH = 10,
   MIN_PASSWORD_LENGTH = 6,
-  MAX_PASSWORD_LENGTH = 20,
-  DEFAULT_SELECTED_OPTIONS: PasswordGeneratorOptionsType = "lowercase";
+  MAX_PASSWORD_LENGTH = 40,
+  DEFAULT_SELECTED_OPTION: PasswordGeneratorOptionsType = "lowercase";
 
 export function PasswordGenerator() {
   const [password, setPassword] = useState<string>("");
-  const [selectedOptions, setSelectedOptions] = useState<
+  const [checkedOptions, setCheckedOptions] = useState<
     PasswordGeneratorOptionsType[]
-  >([DEFAULT_SELECTED_OPTIONS]);
+  >([DEFAULT_SELECTED_OPTION]);
   const [passwordLength, setPasswordLength] = useState<number>(
     DEFAULT_PASSWORD_LENGTH
   );
@@ -33,53 +33,71 @@ export function PasswordGenerator() {
     []
   );
 
-  function handleRangeChange(event: ChangeEvent<HTMLInputElement>) {
+  const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) =>
     setPasswordLength(+event.target.value);
-  }
+  const handleCopyClick = () => navigator.clipboard.writeText(password);
+  const handleGenerateClick = () =>
+    setPassword(getRandomPassword());
 
-  function toggleSelectedOptions({
+  function togglecheckedOptions({
     target: { id, checked },
   }: ChangeEvent<HTMLInputElement>) {
     const option = id as PasswordGeneratorOptionsType;
 
-    // Reject deselecting the last selected option.
-    if (selectedOptions.length === 1 && option === selectedOptions[0]) return;
+    // Reject unckecking the last checked option.
+    if (checkedOptions.length === 1 && option === checkedOptions[0]) return;
 
-    if (selectedOptions.includes(option)) {
-      if (!checked)
-        setSelectedOptions(selectedOptions.filter((opt) => option !== opt));
-    } else {
-      if (checked) setSelectedOptions([...selectedOptions, option]);
-    }
+    // If the option is unchecked, remove it from state.
+    if (checkedOptions.includes(option) && !checked)
+      setCheckedOptions(checkedOptions.filter((opt) => option !== opt));
+    // If the option is checked, add it to state.
+    else if (checked) setCheckedOptions([...checkedOptions, option]);
   }
 
-  function handleCopyClick() {
-    navigator.clipboard.writeText(password);
-  }
+  function getRandomPassword(
+  ): string {
+    const passwordChars: string[] = [];
 
-  function handleGenerateClick() {
-    setPassword(getRandomPassword(selectedOptions, passwordLength));
+    checkedOptions.forEach((option, index) => {
+      // The random number of characters to generate for each option.
+      let charsNumToGenerate =
+        // Check if current option is the last one.
+        index + 1 === checkedOptions.length
+          ? // Fill the remaining chars for the last option.
+            passwordLength - passwordChars.length
+          : // Generate random number of chars for current option.
+            getRandIntInRange(
+              1,
+              passwordLength - checkedOptions.length + 1 - passwordChars.length
+            );
+
+      while (charsNumToGenerate-- > 0) {
+        passwordChars.push(getRandCharForOption(option));
+      }
+    });
+
+    return shuffleArray(passwordChars).join("");
   }
 
   return (
     <div className={styles.container}>
       <Input
         type="text"
-        Icon={<img src="/svgs/copy.svg" alt="copy" title="Copy" />}
         value={password}
+        Icon={<img src="/svgs/copy.svg" alt="copy" title="Copy" />}
         onIconClick={handleCopyClick}
       />
       <Input
-        label={`Character length ${passwordLength}`}
-        type="range"
         id="char-lenght"
         name="fav_language"
         value={passwordLength}
-        onChange={handleRangeChange}
+        type="range"
+        label={`Password length: ${passwordLength}`}
         max={MAX_PASSWORD_LENGTH}
         min={MIN_PASSWORD_LENGTH}
         step={1}
         readOnly
+        onChange={handleRangeChange}
       />
       <div>
         {optionsCheckboxes.map(({ id, label }) => (
@@ -87,8 +105,8 @@ export function PasswordGenerator() {
             key={id}
             id={id}
             label={label}
-            onChange={toggleSelectedOptions}
-            checked={selectedOptions.includes(id)}
+            checked={checkedOptions.includes(id)}
+            onChange={togglecheckedOptions}
           />
         ))}
       </div>
