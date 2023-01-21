@@ -2,18 +2,17 @@ import { InputHTMLAttributes } from "react";
 import styles from "src/components/Checkbox/Checkbox.module.scss";
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label: string;
 }
 
 export function Checkbox({ id, label, ...props }: CheckboxProps) {
   return (
     <div className={styles.wrapper}>
-      <input type="checkbox" id={id} {...props} className={styles.input} />
-      {label && (
-        <label htmlFor={id} className={styles.label}>
-          {label}
-        </label>
-      )}
+      <label htmlFor={id} className={styles.label}>
+        <input type="checkbox" id={id} {...props} className={styles.input} />
+        <span className={styles.checkmark} />
+        {label}
+      </label>
     </div>
   );
 }

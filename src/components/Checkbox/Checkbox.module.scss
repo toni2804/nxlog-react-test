@@ -1,4 +1,6 @@
 @import "src/theme/spacings";
+@import "src/theme/colors";
+@import "src/theme/mixins";
 
 .wrapper {
   display: flex;
@@ -6,10 +8,53 @@
 }
 
 .input {
-  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+
+  &:checked {
+    ~ .checkmark {
+      background-color: $colorPrimaryDarker;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
 }
 
 .label {
-  margin-left: $space4;
+  position: relative;
+  cursor: pointer;
+  padding-left: $space7;
   font-size: $space6;
+  user-select: none;
+
+  &:hover input:not(:checked) ~ .checkmark {
+    background-color: $colorSecondaryDarker;
+  }
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $colorSecondaryDark;
+  border-radius: $radiiInputs;
+
+  @include square($space6);
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 4px;
+    width: 2px;
+    height: 5px;
+    border: solid $colorSecondaryLight;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+  }
 }
