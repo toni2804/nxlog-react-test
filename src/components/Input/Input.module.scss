@@ -1,6 +1,7 @@
 @import "src/theme/spacings";
 @import "src/theme/colors";
 @import "src/theme/mixins";
+@import "src/theme/responsive";
 
 .wrapper {
   position: relative;
@@ -19,7 +20,7 @@
   border-top-left-radius: $radiiInputs;
   border-bottom: 1px solid $colorPrimaryDarker;
 
-  &:focus {
+  &:focus:not([type="range"]) {
     background-color: $colorSecondaryDark;
 
     @include boxShadow;
@@ -30,17 +31,24 @@
 
     @include transitionFastALl;
   }
+
+  @extend .rangeInput;
+}
+
+.inputWithIcon {
+  padding-right: $space9;
 }
 
 .icon {
   cursor: pointer;
+  overflow: none;
   position: absolute;
   right: $space5;
-  top: $space3;
+  top: $space4;
 
   img,
   svg {
-    @include square($space7)
+    @include square($space7);
   }
 
   &:hover {
@@ -53,8 +61,15 @@
 
     @include transitionFastALl;
   }
+
+  @include smRevertMedia {
+    top: $space5;
+  }
 }
 
 .label {
   font-size: $space6;
+}
+
+.rangeInput {
 }

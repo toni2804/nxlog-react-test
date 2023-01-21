@@ -22,7 +22,12 @@ export function Input({
           {label}
         </label>
       )}
-      <input type={type} id={id} {...props} className={styles.input} />
+      <input
+        type={type}
+        id={id}
+        {...props}
+        className={`${styles.input} ${!!Icon ? styles.inputWithIcon : ""}`}
+      />
       {Icon && (
         <span className={styles.icon} onClick={onIconClick}>
           {Icon}
