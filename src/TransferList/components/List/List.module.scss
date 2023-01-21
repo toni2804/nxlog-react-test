@@ -1,4 +1,6 @@
 @import "src/theme/spacings";
+@import "src/theme/responsive";
+@import "src/theme/colors";
 
 .list {
   min-width: 140px;
@@ -10,4 +12,12 @@
   margin: 0;
   padding: $space8;
   list-style: none;
+  text-align: center;
+  border: 1px solid $colorSecondaryDark;
+  border-radius: $radiiBoxes;
+
+  @include smRevertMedia {
+    padding: $space6;
+    margin: $space4;
+  }
 }
