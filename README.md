@@ -1,3 +1,7 @@
+# Task 
+
+For task details, please see file ./NXLog React test tasks.pdf
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
