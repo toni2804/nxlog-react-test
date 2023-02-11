@@ -1,28 +1,28 @@
-@import "src/theme/spacings";
-@import "src/theme/responsive";
+@use "src/theme/spacings";
+@use "src/theme/responsive";
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: $space6;
+  gap: spacings.$space6;
 
-  @include smRevertMedia {
+  @include responsive.smRevertMedia {
     flex-direction: column;
     align-items: center;
-    gap: $space2;
+    gap: spacings.$space2;
   }
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: $space2;
+  gap: spacings.$space2;
 
-  @include smRevertMedia {
+  @include responsive.smRevertMedia {
     flex-direction: row;
     justify-content: center;
-    gap: $space4;
+    gap: spacings.$space4;
 
     button {
       // Rotate arrows on small screens because

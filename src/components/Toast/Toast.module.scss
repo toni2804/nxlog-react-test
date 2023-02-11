@@ -1,23 +1,23 @@
-@import "src/theme/spacings";
-@import "src/theme/colors";
-@import "src/theme/responsive";
+@use "src/theme/spacings";
+@use "src/theme/colors";
+@use "src/theme/responsive";
 
 .container {
   position: fixed;
   display: flex;
-  gap: $space4;
+  gap: spacings.$space4;
   max-width: 200px;
   width: fit-content;
-  bottom: $space6;
-  right: $space6;
-  padding: $space5;
-  font-size: $fontSize1;
-  z-index: $zIndexToast;
-  background-color: $colorSecondaryDarker;
+  bottom: spacings.$space6;
+  right: spacings.$space6;
+  padding: spacings.$space5;
+  font-size: spacings.$fontSize1;
+  z-index: spacings.$zIndexToast;
+  background-color: colors.$colorSecondaryDarker;
   color: white;
-  border-radius: $radiiBoxes;
+  border-radius: spacings.$radiiBoxes;
 
-  @include smRevertMedia {
+  @include responsive.smRevertMedia {
     bottom: 0;
     left: 0;
     right: 0;
@@ -29,11 +29,11 @@
 }
 
 .success {
-  background-color: $colorSuccess;
+  background-color: colors.$colorSuccess;
 }
 
 .error {
-  background-color: $colorError;
+  background-color: colors.$colorError;
 }
 
 .close {

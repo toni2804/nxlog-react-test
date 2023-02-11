@@ -1,35 +1,35 @@
-@import "src/theme/colors";
-@import "src/theme/spacings";
-@import "src/theme/mixins";
+@use "src/theme/colors";
+@use "src/theme/spacings";
+@use "src/theme/mixins";
 
 .button {
   cursor: pointer;
   width: fit-content;
-  padding: $space5;
-  letter-spacing: $space1;
+  padding: spacings.$space5;
+  letter-spacing: spacings.$space1;
   border: none;
-  border-radius: $radiiButtons;
-  background-color: $colorPrimary;
+  border-radius: spacings.$radiiButtons;
+  background-color: colors.$colorPrimary;
   text-transform: uppercase;
 
   &.dense {
-    padding: $space3;
+    padding: spacings.$space3;
   }
 
   &:hover {
-    background-color: $colorPrimaryDark;
+    background-color: colors.$colorPrimaryDark;
 
-    @include boxShadow;
-    @include transitionFastALl;
+    @include mixins.boxShadow;
+    @include mixins.transitionFastALl;
   }
   &:active {
-    background-color: $colorPrimaryDarker;
+    background-color: colors.$colorPrimaryDarker;
 
-    @include transitionFastALl;
+    @include mixins.transitionFastALl;
   }
   &:disabled {
     cursor: initial;
-    background-color: $colorSecondaryDarker;
+    background-color: colors.$colorSecondaryDarker;
     opacity: 0.6;
     box-shadow: none;
   }

@@ -1,5 +1,5 @@
 @use "sass:map";
-@import "src/theme/breakpoints";
+@use "src/theme/breakpoints";
 
 @mixin square($size) {
   width: $size;
@@ -7,25 +7,25 @@
 }
 
 @mixin smRevertMedia {
-  @media screen and (max-width: map.get($breakpoints, "sm")) {
+  @media screen and (max-width: map.get(breakpoints.$breakpoints, "sm")) {
     @content;
   }
 }
 
 @mixin smMedia {
-  @media screen and (min-width: map.get($breakpoints, "sm")) {
+  @media screen and (min-width: map.get(breakpoints.$breakpoints, "sm")) {
     @content;
   }
 }
 
 @mixin mdMedia {
-  @media screen and (min-width: map.get($breakpoints, "md")) {
+  @media screen and (min-width: map.get(breakpoints.$breakpoints, "md")) {
     @content;
   }
 }
 
 @mixin lgMedia {
-  @media screen and (min-width: map.get($breakpoints, "lg")) {
+  @media screen and (min-width: map.get(breakpoints.$breakpoints, "lg")) {
     @content;
   }
 }

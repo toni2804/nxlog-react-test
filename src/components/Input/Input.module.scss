@@ -1,35 +1,34 @@
-@import "src/theme/spacings";
-@import "src/theme/colors";
-@import "src/theme/mixins";
-@import "src/theme/responsive";
+@use "src/theme/spacings";
+@use "src/theme/colors";
+@use "src/theme/mixins";
+@use "src/theme/responsive";
 
 .wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: $space2;
+  gap: spacings.$space2;
 }
 
 .input {
   outline: none;
   border: none;
-  padding: $space4;
+  padding: spacings.$space4;
   font-size: 1.1rem;
-  background-color: $colorSecondary;
-  border-top-right-radius: $radiiInputs;
-  border-top-left-radius: $radiiInputs;
-  border-bottom: 1px solid $colorPrimaryDarker;
+  background-color: colors.$colorSecondary;
+  border-top-right-radius: spacings.$radiiInputs;
+  border-top-left-radius: spacings.$radiiInputs;
+  border-bottom: 1px solid colors.$colorPrimaryDarker;
+  e &:focus:not([type="range"]) {
+    background-color: colors.$colorSecondaryDark;
 
-  &:focus:not([type="range"]) {
-    background-color: $colorSecondaryDark;
-
-    @include boxShadow;
-    @include transitionFastALl;
+    @include mixins.boxShadow;
+    @include mixins.transitionFastALl;
   }
   &:hover {
-    border-bottom-color: $colorPrimaryDark;
+    border-bottom-color: colors.$colorPrimaryDark;
 
-    @include transitionFastALl;
+    @include mixins.transitionFastALl;
   }
 
   &[type="range"] {
@@ -38,73 +37,73 @@
 }
 
 .inputWithIcon {
-  padding-right: $space8;
+  padding-right: spacings.$space8;
 }
 
 .icon {
   cursor: pointer;
   overflow: none;
   position: absolute;
-  right: $space4;
-  top: $space3;
+  right: spacings.$space4;
+  top: spacings.$space3;
 
   img,
   svg {
-    @include square($space6);
+    @include mixins.square(spacings.$space6);
   }
 
   &:hover {
     opacity: 0.8;
 
-    @include transitionFastALl;
+    @include mixins.transitionFastALl;
   }
   &:active {
     opacity: 0.6;
 
-    @include transitionFastALl;
+    @include mixins.transitionFastALl;
   }
 
-  @include smRevertMedia {
-    top: $space4;
+  @include responsive.smRevertMedia {
+    top: spacings.$space4;
   }
 }
 
 .label {
-  font-size: $space6;
+  font-size: spacings.$space6;
 }
 
 .rangeInput {
   -webkit-appearance: none;
   border: none;
-  border-radius: $radiiInputs;
-  margin: $space6 0;
+  border-radius: spacings.$radiiInputs;
+  margin: spacings.$space6 0;
   padding: 0;
-  height: $space3;
+  height: spacings.$space3;
 
   &:focus {
     &::-webkit-slider-thumb {
-      @include boxShadow;
+      @include mixins.boxShadow;
     }
   }
 
   &::-webkit-slider-thumb {
     cursor: pointer;
     -webkit-appearance: none;
-    background: $colorPrimaryDarker;
-    border-radius: $radiiRadio;
+    background: colors.$colorPrimaryDarker;
+    border-radius: spacings.$radiiRadio;
     margin-top: -4px;
 
-    @include square($space5);
+    @include mixins.square(spacings.$space5);
   }
 
   &::-webkit-slider-runnable-track {
     cursor: pointer;
-    background: $colorPrimary;
-    height: $space3;
-    border-radius: $radiiInputs;
+    background: colors.$colorPrimary;
+    height: spacings.$space3;
+    border-radius: spacings.$radiiInputs;
 
     &:hover {
-      background: $colorPrimaryLight;
+      background: colors.$colorPrimaryLight;
     }
   }
 }

@@ -1,6 +1,6 @@
-@import "src/theme/spacings";
-@import "src/theme/responsive";
-@import "src/theme/colors";
+@use "src/theme/spacings";
+@use "src/theme/responsive";
+@use "src/theme/colors";
 
 .list {
   min-width: 140px;
@@ -8,16 +8,16 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  gap: $space2;
+  gap: spacings.$space2;
   margin: 0;
-  padding: $space8;
+  padding: spacings.$space8;
   list-style: none;
   text-align: center;
-  border: 1px solid $colorSecondaryDark;
-  border-radius: $radiiBoxes;
+  border: 1px solid colors.$colorSecondaryDark;
+  border-radius: spacings.$radiiBoxes;
 
-  @include smRevertMedia {
-    padding: $space6;
-    margin: $space4;
+  @include responsive.smRevertMedia {
+    padding: spacings.$space6;
+    margin: spacings.$space4;
   }
 }

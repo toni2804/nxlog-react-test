@@ -1,25 +1,25 @@
 @use "sass:map";
-@import "src/theme/breakpoints";
-@import "src/theme/colors";
-@import "src/theme/spacings";
-@import "src/theme/responsive";
+@use "src/theme/breakpoints";
+@use "src/theme/colors";
+@use "src/theme/spacings";
+@use "src/theme/responsive";
 
 .container {
   position: relative;
   min-height: 100vh;
   top: 0;
-  padding: $space6;
+  padding: spacings.$space6;
   text-align: center;
   box-sizing: border-box;
-  background-color: $colorSecondaryDark;
+  background-color: colors.$colorSecondaryDark;
 
-  @include smRevertMedia {
-    padding: $space4;
+  @include responsive.smRevertMedia {
+    padding: spacings.$space4;
   }
 }
 
 .header {
-  font-size: $fontSize4;
+  font-size: spacings.$fontSize4;
 }
 
 .layout {
@@ -27,7 +27,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: map.get($breakpoints, "lg");
+  max-width: map.get(breakpoints.$breakpoints, "lg");
   font-size: calc(10px + 2vmin);
   color: black;
 }
